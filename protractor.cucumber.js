@@ -1,7 +1,8 @@
 var envUrl =  "http://ngx-bootstrap-latest.surge.sh/#/";
 
 const chromeOptions = {
-  args: ['--headless', '--disable-gpu', '--no-sandbox']
+  // need this window size due to cutting last menu point by viewport borders. will be deleted after fix
+  args: ['--headless', '--disable-gpu', '--window-size=800, 900']
 };
 
 if(process.env.GOOGLE_CHROME_BINARY) {
@@ -31,7 +32,10 @@ exports.config = {
   ],
 
   cucumberOpts: {
-    require: ['./demo/e2e/step_definitions/*.steps.ts']
+    require: [
+      './demo/e2e-bdd/step_definitions/*.steps.ts',
+      './demo/e2e-bdd/support/*.ts'
+    ]
   },
 
   onPrepare: () => {
